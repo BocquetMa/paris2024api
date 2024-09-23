@@ -1,6 +1,5 @@
 package bts.sio.api.service;
 
-import bts.sio.api.model.Athlete;
 import bts.sio.api.model.Sport;
 import bts.sio.api.repository.SportRepository;
 import lombok.Data;
