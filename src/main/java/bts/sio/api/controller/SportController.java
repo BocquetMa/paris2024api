@@ -29,7 +29,7 @@ public class SportController {
      * @param id The id of the athlete
      * @return An Athlete object full filled
      */
-    @GetMapping("/athlete/{id}")
+    @GetMapping("/sport/{id}")
     public Sport getSport(@PathVariable("id") final Long id) {
         Optional<Sport> sport = sportService.getSport(id);
         if(sport.isPresent()) {
