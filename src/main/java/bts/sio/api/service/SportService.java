@@ -1,5 +1,6 @@
 package bts.sio.api.service;
 
+import bts.sio.api.model.Athlete;
 import bts.sio.api.model.Sport;
 import bts.sio.api.repository.SportRepository;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class SportService {
     }
 
     public Sport saveSport(Sport sport) {
-        Sport savedSport = SportRepository.save(sport);
+        Sport savedSport = sportRepository.save(sport);
         return savedSport;
     }
 }
