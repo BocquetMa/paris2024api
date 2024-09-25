@@ -39,7 +39,11 @@ public class Athlete {
             inverseJoinColumns = @JoinColumn( name = "olympiade_id" ) )
     private List<Olympiade> olympiades = new ArrayList<>();
 
-
+    @ManyToMany
+    @JoinTable( name = "athlete_epreuve",
+            joinColumns = @JoinColumn( name = "athlete_id" ),
+            inverseJoinColumns = @JoinColumn( name = "epreuve_id" ) )
+    private List<Epreuve> epreuves = new ArrayList<>();
 
 
 }

@@ -21,6 +21,8 @@ public class AthleteService {
         return athleteRepository.findAll();
     }
 
+    public Iterable<Athlete> getAthleteEpreuves() { return athleteRepository.findAll();
+    }
     public void deleteAthlete(final Long id) {
         athleteRepository.deleteById(id);
     }

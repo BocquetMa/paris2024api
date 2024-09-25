@@ -43,7 +43,10 @@ public class AthleteController {
             return null;
         }
     }
-
+    @GetMapping("/athlete_epreuve")
+    public Iterable<Athlete> getAthleteEpreuve() {
+        return athleteService.getAthleteEpreuves();
+    }
     /**
      * Read - Get all athletes
      * @return - An Iterable object of Athlete full filled
@@ -75,20 +78,17 @@ public class AthleteController {
                 currentAthlete.setPrenom(prenom);
             }
 
-            // Modification de la date de naissance
             LocalDate dateNaissance = athlete.getDateNaiss();
             if (dateNaissance != null) {
                 currentAthlete.setDateNaiss(dateNaissance);
             }
 
-            // Modification du sport
-            Sport sport = athlete.getSport(); // Assurez-vous que l'objet Sport est correctement récupéré
+            Sport sport = athlete.getSport();
             if (sport != null) {
                 currentAthlete.setSport(sport);
             }
 
-            // Modification du pays
-            Pays pays = athlete.getPays(); // Assurez-vous que l'objet Pays est correctement récupéré
+            Pays pays = athlete.getPays();
             if (pays != null) {
                 currentAthlete.setPays(pays);
             }
