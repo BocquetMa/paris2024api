@@ -43,10 +43,7 @@ public class AthleteController {
             return null;
         }
     }
-    @GetMapping("/athlete_epreuve")
-    public Iterable<Athlete> getAthleteEpreuve() {
-        return athleteService.getAthleteEpreuves();
-    }
+
     /**
      * Read - Get all athletes
      * @return - An Iterable object of Athlete full filled
