@@ -1,9 +1,14 @@
 package bts.sio.api.controller;
 
 import bts.sio.api.model.Athlete;
+import bts.sio.api.model.Sport;
+import bts.sio.api.model.Pays;
+
 import bts.sio.api.service.AthleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
+
 
 import java.util.Optional;
 
@@ -57,24 +62,41 @@ public class AthleteController {
     @PutMapping("/athlete/{id}")
     public Athlete updateAthlete(@PathVariable("id") final Long id, @RequestBody Athlete athlete) {
         Optional<Athlete> e = athleteService.getAthlete(id);
-        if(e.isPresent()) {
+        if (e.isPresent()) {
             Athlete currentAthlete = e.get();
 
             String nom = athlete.getNom();
-            if(nom != null) {
+            if (nom != null) {
                 currentAthlete.setNom(nom);
             }
+
             String prenom = athlete.getPrenom();
-            if(prenom != null) {
-                currentAthlete.setPrenom(prenom);;
+            if (prenom != null) {
+                currentAthlete.setPrenom(prenom);
+            }
+
+            LocalDate dateNaissance = athlete.getDateNaiss();
+            if (dateNaissance != null) {
+                currentAthlete.setDateNaiss(dateNaissance);
+            }
+
+            Sport sport = athlete.getSport();
+            if (sport != null) {
+                currentAthlete.setSport(sport);
+            }
+
+            Pays pays = athlete.getPays();
+            if (pays != null) {
+                currentAthlete.setPays(pays);
             }
 
             athleteService.saveAthlete(currentAthlete);
             return currentAthlete;
         } else {
-            return null;
+            return null; // Gérer l'absence d'athlète
         }
     }
+
 
 
     /**
