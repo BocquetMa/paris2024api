@@ -28,5 +28,9 @@ public class ActualiteController {
         return actualiteService.getActualites();
     }
 
+    @PostMapping("/actualite")
+    public Actualite createActualite(@RequestBody Actualite actualite) {
+        return actualiteService.saveActualite(actualite);
+    }
 
 }

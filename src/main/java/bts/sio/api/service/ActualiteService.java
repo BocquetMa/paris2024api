@@ -20,4 +20,9 @@ public class ActualiteService {
     public Iterable<Actualite> getActualites() {
         return actualiteRepository.findAll();
     }
+
+    public Actualite saveActualite(Actualite actualite) {
+        Actualite savedActualite = actualiteRepository.save(actualite);
+        return savedActualite;
+    }
 }
