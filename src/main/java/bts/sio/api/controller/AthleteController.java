@@ -2,6 +2,7 @@ package bts.sio.api.controller;
 
 import bts.sio.api.model.Athlete;
 import bts.sio.api.model.Sport;
+import bts.sio.api.model.Epreuve;
 import bts.sio.api.model.Pays;
 
 import bts.sio.api.service.AthleteService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -96,9 +98,6 @@ public class AthleteController {
             return null; // Gérer l'absence d'athlète
         }
     }
-
-
-
     /**
      * Delete - Delete an athlete
      * @param id - The id of the athlete to delete
@@ -108,4 +107,13 @@ public class AthleteController {
         athleteService.deleteAthlete(id);
     }
 
+    @GetMapping("/{athleteId}/epreuves")
+    public List<Epreuve> getEpreuvesByAthlete(@PathVariable Long athleteId){
+        return athleteService.getEpreuvesByAthleteId(athleteId);
+    }
+
+    @PostMapping("/{athleteId}/epreuves")
+    public Athlete addEpreuvesToAthlete(@PathVariable Long athleteId, @RequestBody List<Long> epreuves) {
+        return athleteService.addEpreuvesToAthlete(athleteId, epreuves);
+    }
 }

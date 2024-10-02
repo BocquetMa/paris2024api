@@ -1,11 +1,13 @@
 package bts.sio.api.service;
 
+import bts.sio.api.model.Athlete;
 import bts.sio.api.model.Epreuve;
 import bts.sio.api.repository.EpreuveRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Data
 @Service
