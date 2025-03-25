@@ -3,6 +3,13 @@ package bts.sio.api.controller;
 import bts.sio.api.model.Epreuve;
 
 import bts.sio.api.service.EpreuveService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
@@ -11,6 +18,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
+@Tag(name = "Épreuve", description = "API de gestion des épreuves")
 public class EpreuveController {
 
     @Autowired
@@ -22,6 +30,12 @@ public class EpreuveController {
      * @return The epreuve object saved
      */
     @PostMapping("/epreuve")
+    @Operation(summary = "Créer une nouvelle épreuve", description = "Crée une nouvelle épreuve avec les informations fournies")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Épreuve créée avec succès",
+                    content = @Content(schema = @Schema(implementation = Epreuve.class))),
+            @ApiResponse(responseCode = "400", description = "Données invalides")
+    })
     public Epreuve createEpreuve(@RequestBody Epreuve epreuve) {
         return epreuveService.saveEpreuve(epreuve);
     }
@@ -33,7 +47,13 @@ public class EpreuveController {
      * @return An epreuve object full filled
      */
     @GetMapping("/epreuve/{id}")
-    public Epreuve getEpreuve(@PathVariable("id") final Long id) {
+    @Operation(summary = "Obtenir une épreuve par ID", description = "Renvoie une épreuve en fonction de l'ID fourni")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Épreuve trouvée",
+                    content = @Content(schema = @Schema(implementation = Epreuve.class))),
+            @ApiResponse(responseCode = "404", description = "Épreuve non trouvée")
+    })
+    public Epreuve getEpreuve(@Parameter(description = "ID de l'épreuve à récupérer") @PathVariable("id") final Long id) {
         Optional<Epreuve> epreuve = epreuveService.getEpreuve(id);
         if(epreuve.isPresent()) {
             return epreuve.get();
@@ -47,6 +67,7 @@ public class EpreuveController {
      * @return - An Iterable object of Epreuve full filled
      */
     @GetMapping("/epreuves")
+    @Operation(summary = "Obtenir toutes les épreuves", description = "Renvoie la liste de toutes les épreuves")
     public Iterable<Epreuve> getEpreuves() {
         return epreuveService.getEpreuves();
     }
@@ -58,7 +79,13 @@ public class EpreuveController {
      * @return
      */
     @PutMapping("/epreuve/{id}")
-    public Epreuve updateEpreuve(@PathVariable("id") final Long id, @RequestBody Epreuve epreuve) {
+    @Operation(summary = "Mettre à jour une épreuve", description = "Met à jour une épreuve avec les informations fournies")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Épreuve mise à jour avec succès"),
+            @ApiResponse(responseCode = "404", description = "Épreuve non trouvée")
+    })
+    public Epreuve updateEpreuve(@Parameter(description = "ID de l'épreuve à mettre à jour") @PathVariable("id") final Long id,
+                                 @RequestBody Epreuve epreuve) {
         Optional<Epreuve> e = epreuveService.getEpreuve(id);
         if (e.isPresent()) {
             Epreuve currentEpreuve = e.get();
@@ -92,8 +119,12 @@ public class EpreuveController {
      * @param id - The id of the epreuve to delete
      */
     @DeleteMapping("/epreuve/{id}")
-    public void deleteEpreuve(@PathVariable("id") final Long id) {
+    @Operation(summary = "Supprimer une épreuve", description = "Supprime une épreuve en fonction de l'ID fourni")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Épreuve supprimée avec succès"),
+            @ApiResponse(responseCode = "404", description = "Épreuve non trouvée")
+    })
+    public void deleteEpreuve(@Parameter(description = "ID de l'épreuve à supprimer") @PathVariable("id") final Long id) {
         epreuveService.deleteEpreuve(id);
     }
-
 }
